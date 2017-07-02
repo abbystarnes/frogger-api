@@ -1,0 +1,34 @@
+{
+  "name": "frogger_api",
+  "version": "1.0.0",
+  "description": "An API to generate random images based on seed string. Created to generate images for Galvanize Quarter 1 Project refactor of Robot Frogger.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abbystarnes/frogger-api.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "npm",
+    "api",
+    "frogger"
+  ],
+  "author": "Abby Starnes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abbystarnes/frogger-api/issues"
+  },
+  "homepage": "https://github.com/abbystarnes/frogger-api#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "route": "^0.2.5"
+  }
+}
