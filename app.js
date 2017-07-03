@@ -15,22 +15,14 @@ const bodyParser = require('body-parser');
 const fs = require ('fs');
 // seeded random number generator for JS
 const seedrandom = require('seedrandom');
+// allow CORS access
+const cors = require('cors');
 
-let pickAPart = function(answer, name){
-  let part;
-  if (answer <= 2.5) {
-    part = fs.readFileSync(__dirname + `/public/images/${name}1.svg`, 'UTF-8');
-  } else if ((answer > 2.5) && (answer <= 5)) {
-    part = fs.readFileSync(__dirname + `/public/images/${name}2.svg`, 'UTF-8');
-  } else if ((answer > 5) && (answer <= 7.5)) {
-    part = fs.readFileSync(__dirname + `/public/images/${name}3.svg`, 'UTF-8');
-  } else {
-    part = fs.readFileSync(__dirname + `/public/images/${name}4.svg`, 'UTF-8');
-  }
-  return part;
-}
+let variants = [1, 2, 3, 4];
+let parts = ['body', 'eyes', 'mouth'];
 
-
+// bypass CORS security issues
+app.use(cors())
 // serves static files from public directory
 app.use(express.static(__dirname + '/public'));
 
@@ -44,14 +36,36 @@ app.use(bodyParser.urlencoded({
 // app.use(route);
 
 // hello world
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   console.log('here');
   res.end('here');
 });
 
+
+
+let pickAPart = (seed, name) => {
+  let part;
+  let randomNum;
+  let blank = '';
+  for (let x = 0; x < 3; x++){
+    randomNum = seedrandom + blank;
+  }
+  if (answer <= 2.5) {
+    part = fs.readFileSync(__dirname + `/public/images/${name}1.svg`, 'UTF-8');
+  } else if ((answer > 2.5) && (answer <= 5)) {
+    part = fs.readFileSync(__dirname + `/public/images/${name}2.svg`, 'UTF-8');
+  } else if ((answer > 5) && (answer <= 7.5)) {
+    part = fs.readFileSync(__dirname + `/public/images/${name}3.svg`, 'UTF-8');
+  } else {
+    part = fs.readFileSync(__dirname + `/public/images/${name}4.svg`, 'UTF-8');
+  }
+  return part;
+}
 // creature generator
-app.get('/creature/:seed', function(req, res) {
+app.get('/creature/:seed', (req, res) => {
   let seed = req.params.seed;
+
+
   console.log(seed, 'seed');
   // trying out seed random
   var rng = seedrandom(seed);
@@ -71,18 +85,18 @@ app.get('/creature/:seed', function(req, res) {
   let eyes = pickAPart(answer2, eyesName);
   let mouth = pickAPart(answer3, mouthName);
   let creature = header + body + eyes + mouth + footer;
-  fs.writeFileSync(__dirname + '/public/images/creature_sample.svg', creature)
+  // fs.writeFileSync(__dirname + '/public/images/creature_sample.svg', creature)
   res.end(creature);
 });
 
 // if request hasn't been sent by end of app, send a 500 error and end the request
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.end();
 });
 
 // listen on the given port
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('Listening on port', port);
 });
 
