@@ -22,7 +22,7 @@ let variants = [1, 2, 3, 4];
 let parts = ['body', 'eyes', 'mouth'];
 
 // bypass CORS security issues
-app.use(cors())
+app.use(cors());
 // serves static files from public directory
 app.use(express.static(__dirname + '/public'));
 
