@@ -75,9 +75,22 @@ app.get('/creature/:seed', function(req, res) {
   let eyes = pickAPart(answer2, eyesName);
   let mouth = pickAPart(answer3, mouthName);
   let creature = header + body + eyes + mouth + footer;
-  fs.writeFileSync(__dirname + '/public/images/creature_sample.svg', creature)
-  res.end(creature);
+  fs.writeFileSync(__dirname + '/public/images/creature_sample.svg', creature);
+  // res.writeHead(200, {'Content-Type': 'image/svg+xml' });
+  console.log(creature, 'got here');
+  res.send(creature);
 });
+
+/* problem:
+ link svgs to frogger game from API
+ image not appearing w/hot link
+ options:
+ - try saving sent object (svg) to a file and link locally
+    - update frogger to be a node app, include fs
+ - try changing sent object to be a view, render html w/image in body
+ -
+*/
+
 
 // if request hasn't been sent by end of app, send a 500 error and end the request
 app.use(function(err, req, res, next) {
